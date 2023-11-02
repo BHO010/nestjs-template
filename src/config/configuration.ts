@@ -3,15 +3,23 @@ import entites from 'src/entities';
 
 export default () => ({
   port: parseInt(process.env.PORT, 10) || 3000,
-  database: {
+  sql: {
     type: "mysql",
-    host: process.env.DATABASE_HOST,
-    port: parseInt(process.env.DATABASE_PORT, 10),
-    username: process.env.DATABASE_USERNAME,
-    password: process.env.DATABASE_PASSWORD,
-    database: process.env.DATABASE_NAME,
+    host: process.env.SQL_DATABASE_HOST,
+    port: parseInt(process.env.SQL_DATABASE_PORT, 10),
+    username: process.env.SQL_DATABASE_USERNAME,
+    password: process.env.SQL_DATABASE_PASSWORD,
+    database: process.env.SQL_DATABASE_NAME,
     entities: entites,
     synchronize: true,
+  },
+  mongo: {
+    uri: process.env.MONGO_DATABASE_URI,
+    dbName: process.env.MONGO_DATABASE_NAME,
+    auth: {
+      username: process.env.MONGO_DATABASE_USER,
+      password: process.env.MONGO_DATABASE_PASSWORD,
+    }
   },
   auth: {
     redirect_uri: process.env.REDIRECT_URI,

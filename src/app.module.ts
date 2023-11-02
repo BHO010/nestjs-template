@@ -1,17 +1,18 @@
 import 'dotenv/config'
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { DatabaseModule } from './database/database.module';
+import { SqlModule } from './database/sql.module';
+import { MongoModule } from './database/mongo.module';
 import configuration from './config/configuration';
 import { ThrottlerModule } from '@nestjs/throttler';
-import { HealthController } from './health/health.controller';
 import { HealthModule } from './health/health.module';
 import { AuthModule } from './auth/auth.module';
 import { GoogleOauthModule } from './auth/google/google-oauth.module';
 
 @Module({
   imports: [
-    DatabaseModule,
+    SqlModule,
+    MongoModule,
     ConfigModule.forRoot({
       load: [configuration],
       isGlobal: true
