@@ -1,5 +1,5 @@
 import { Injectable, HttpException, HttpStatus, BadRequestException } from '@nestjs/common';
-import bcrypt from 'bcryptjs'
+import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -35,14 +35,23 @@ export class AuthService {
       throw new BadRequestException("Incorrect credentials")
     }
 
-    const { accessToken, refreshToken } = await this.jwtAuthService.login({
-      firstName: user.firstName,
-      lastName: user.lastName,
-      email: user.email,
-      photo: user.photo
-    })
+    return await this.jwtAuthService.login(user)
 
-    return { accessToken: accessToken, refreshToken: refreshToken }
+  }
+
+  async googleLogin(user: User) {
+    try {
+      let isExist = await this.usersRepository.findOne({ where:
+        { email: user.email }
+      })
+  
+      if(!isExist) {
+        await this.usersRepository.save(user)
+      }
+      return await this.jwtAuthService.login(user);
+    }catch(e) {
+      throw new HttpException(e.toString(), HttpStatus.INTERNAL_SERVER_ERROR, ) 
+    }
   }
 
   async register(registerDto: RegisterDto) {
@@ -54,17 +63,22 @@ export class AuthService {
       throw new BadRequestException("Email is already registered.")
     }else {
       let { password, ...rest } = registerDto
-
+      console.log("salt", this.configService.get('auth.salt_rounds'))
+      console.log("password", password)
+      let passwordHash = bcrypt.hashSync(password, Number(this.configService.get('auth.salt_rounds')))
       return await this.usersRepository.save({
         ...rest,
-        password: bcrypt.hashSync(password, this.configService.get('auth.salt_rounds'))
+        password: passwordHash
       })
     }
   }
  
   async getUser(payload: any) {
-    let user = await this.usersRepository.findOne({ where:
-      { email: payload.email }
+    let user = await this.usersRepository.findOne({ 
+      select: {
+        id: true,email: true,firstName: true,lastName: true, photo: true
+      },
+      where: { email: payload.email }
     })
 
     return user

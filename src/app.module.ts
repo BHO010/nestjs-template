@@ -7,6 +7,7 @@ import { ThrottlerModule } from '@nestjs/throttler';
 import { HealthController } from './health/health.controller';
 import { HealthModule } from './health/health.module';
 import { AuthModule } from './auth/auth.module';
+import { GoogleOauthModule } from './auth/google/google-oauth.module';
 
 @Module({
   imports: [
@@ -16,10 +17,9 @@ import { AuthModule } from './auth/auth.module';
       isGlobal: true
     }), 
     ThrottlerModule.forRoot([{ limit: 10, ttl: 60 }]),
-    //AuthModule,
-    //GoogleOauthModule,
-    HealthModule,
     AuthModule,
+    GoogleOauthModule,
+    HealthModule
   ],
   controllers: [],
   providers: [],

@@ -2,11 +2,11 @@ import { ApiProperty, ApiPropertyOptional, IntersectionType } from '@nestjs/swag
 import { IsEmail, IsNotEmpty } from 'class-validator';
 
 export class RegisterDto {
-  @ApiProperty({example: "test@test.com"})
+  @ApiProperty({example: "john"})
   @IsNotEmpty()
   firstName: string
 
-  @ApiProperty({example: "test@test.com"})
+  @ApiProperty({example: "doe"})
   @IsNotEmpty()
   lastName: string
 
@@ -15,7 +15,7 @@ export class RegisterDto {
   @IsEmail()
   email: string
 
-  @ApiProperty({example: ""})
+  @ApiProperty({example: "test"})
   @IsNotEmpty()
   password: string
 }

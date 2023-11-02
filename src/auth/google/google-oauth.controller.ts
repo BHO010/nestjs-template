@@ -8,18 +8,17 @@ import { JwtAuthService } from '../jwt/jwt-auth.service';
 import { GoogleOauthGuard } from './google-oauth.guard';
 import { User } from '../../entities/user.entity';
 import { Repository } from 'typeorm';
+import { AuthService } from '../auth.service';
 
-const whitelist = [
-  "binghui.ho@visiongroup.co"
-]
-@ApiTags('Google-service')
+@ApiTags('Google')
 @Controller('auth/google')
 export class GoogleOauthController {
 	constructor(
 		@InjectRepository(User)
     private usersRepository: Repository<User>,
 		private configService: ConfigService,
-		private jwtAuthService: JwtAuthService
+		private jwtAuthService: JwtAuthService,
+		private authService: AuthService
 	) {}
 
 	@Get()
@@ -34,11 +33,14 @@ export class GoogleOauthController {
 		// GoogleOauthStrategy#validate() method, and assigns it to the Request object as `req.user`
 
 		const user = req.user as any;
-
-		const { accessToken, refreshToken } = await this.jwtAuthService.login(user);
-		res.cookie('refreshToken', refreshToken);
+		console.log("user", user)
+		const tokens = await this.authService.googleLogin(user);
+		res.cookie('refresh_token', tokens.refresh_token);
     //redirect to private  landing page
-		res.redirect(`http://localhost:8080/dashboard`)
-		return { accessToken: accessToken, refreshToken: refreshToken };
+		if(this.configService.get('redirect_uri')) {
+			res.redirect(this.configService.get('redirect_uri'))
+		}
+		
+		return tokens
 	}
 }

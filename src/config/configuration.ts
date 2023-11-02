@@ -14,6 +14,7 @@ export default () => ({
     synchronize: true,
   },
   auth: {
+    redirect_uri: process.env.REDIRECT_URI,
     salt_rounds: process.env.SALT_ROUNDS,
 		jwt: {
 			accessSecret: process.env.JWT_ACCESS_SECRET,

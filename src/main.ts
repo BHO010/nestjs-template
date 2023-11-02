@@ -38,9 +38,6 @@ async function bootstrap() {
       },
       "Bearer"
     )
-    .addTag('Auth')
-    .addTag('Google-service')
-    .addTag('Healthcheck')
     .build();
 
   const document = SwaggerModule.createDocument(app, config);

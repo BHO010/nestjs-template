@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
-import { User } from '../../entities/user.entitiy'
+import { User } from '../../entities/user.entity'
 import { JwtAccessPayload } from '../../common/types/types';
 import { ConfigService } from '@nestjs/config';
 import { Repository } from 'typeorm';
@@ -48,7 +48,7 @@ export class JwtAuthService {
 		const tokens = await this.getTokens(payload)
 		
 		return {
-			accessToken: tokens.accessToken
+			access_token: tokens.access_token
 		}
 	}
 
@@ -73,8 +73,8 @@ export class JwtAuthService {
     ]);
 
     return {
-      accessToken,
-      refreshToken,
+      access_token: accessToken,
+      refresh_token: refreshToken,
     };
   }
 }

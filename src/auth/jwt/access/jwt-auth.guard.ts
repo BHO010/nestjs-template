@@ -10,9 +10,6 @@ export class JwtAccessAuthGuard extends AuthGuard('jwt') {
     return super.canActivate(context);
   }
   handleRequest(err, user, info) {
-    console.log("err", err)
-    console.log("user", user)
-    console.log("info", info)
     // You can throw an exception based on either "info" or "err" arguments
     if(info && info.toString().includes("TokenExpiredError")) {
       throw new UnauthorizedException(info ? info.toString() : '');
