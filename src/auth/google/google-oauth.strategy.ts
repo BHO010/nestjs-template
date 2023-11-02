@@ -24,7 +24,6 @@ export class GoogleOauthStrategy extends PassportStrategy(Strategy, 'google') {
 	}
 
 	async validate(accessToken: string, _refreshToken: string, profile: Profile) {
-		console.log("profile", profile)
     let user = new User()
     user.firstName = profile.name.givenName || ""
     user.lastName = profile.name.familyName || ""

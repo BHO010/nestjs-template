@@ -33,7 +33,6 @@ export class GoogleOauthController {
 		// GoogleOauthStrategy#validate() method, and assigns it to the Request object as `req.user`
 
 		const user = req.user as any;
-		console.log("user", user)
 		const tokens = await this.authService.googleLogin(user);
 		res.cookie('refresh_token', tokens.refresh_token);
     //redirect to private  landing page

@@ -63,8 +63,6 @@ export class AuthService {
       throw new BadRequestException("Email is already registered.")
     }else {
       let { password, ...rest } = registerDto
-      console.log("salt", this.configService.get('auth.salt_rounds'))
-      console.log("password", password)
       let passwordHash = bcrypt.hashSync(password, Number(this.configService.get('auth.salt_rounds')))
       return await this.usersRepository.save({
         ...rest,
