@@ -1,10 +1,17 @@
-# nestjs template
+# Nestjs template
+A simple nestjs template that includes:
+- database connection to both mysql and mongodb
+- google server side authentication
+- jwt module
+
+Sample authentication code is base on mysql.
 
 ## Installation
 
 ```bash
 $ npm install
 ```
+Create a .env file and copy the [environment variables](https://github.com/BHO010/nestjs-template/edit/main/README.md#env). Fill in your own keys and secret
 
 ## Running the app
 
@@ -35,9 +42,9 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
-## Resource
+## OpenAPI/Swagger
 
-nest g resource module_name
+Once the app is running, you can view the swagger @ http://localhost:3000/docs
 
 ## Env
 Set your own google oauth client and secret key
