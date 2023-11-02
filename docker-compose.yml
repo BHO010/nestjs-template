@@ -1,0 +1,41 @@
+# Docker Compose Configuration
+# visit https://docs.docker.com/compose/
+
+version: '3.8'
+services:
+  # app service for your backend
+  app:
+    container_name: nestjs-template
+    build:
+      context: ./
+      dockerfile: Dockerfile
+      target: builder
+    command: npm run start:dev
+    volumes:
+      - .:/app
+      - /app/node_modules
+    environment:
+      DATABASE_NAME: nestjs-template-db
+      DATABASE_USER: admin
+      DATABASE_PASSWORD: password
+      DB_URI: mongodb://database:27017
+    ports:
+      - '5000:5000'
+    depends_on:
+      - database
+
+  # start the mongodb service as container
+  database:
+    image: mongo:latest
+    container_name: nestjs-template-mongodb
+    restart: always
+    ports:
+      - '27019:27018'
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password
+    volumes:
+      - mongodb_data_container:/data/db
+
+volumes:
+  mongodb_data_container:
