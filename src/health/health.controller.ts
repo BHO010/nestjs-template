@@ -1,5 +1,5 @@
 import { Controller, Get } from '@nestjs/common';
-import { HealthCheckService, HttpHealthIndicator, HealthCheck, MongooseHealthIndicator } from '@nestjs/terminus';
+import { HealthCheckService, HttpHealthIndicator, HealthCheck, TypeOrmHealthIndicator } from '@nestjs/terminus';
 import { ApiTags } from '@nestjs/swagger'
 
 @ApiTags('Healthcheck')
@@ -7,7 +7,7 @@ import { ApiTags } from '@nestjs/swagger'
 export class HealthController {
   constructor(
     private health: HealthCheckService,
-    private db: MongooseHealthIndicator,
+    private db: TypeOrmHealthIndicator,
   ) {}
 
   @Get()

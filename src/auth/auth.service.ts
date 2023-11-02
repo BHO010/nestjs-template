@@ -8,7 +8,7 @@ import { User } from '../entities/user.entity';
 import { JwtAccessPayload } from '../common/types/types';
 import { JwtAuthService } from './jwt/jwt-auth.service'
 import { Request, Response } from 'express';
-import { LoginDto } from './dto/login.Dto';
+import { LoginDto } from './dto/login.dto';
 import { RegisterDto } from './dto/register.dto';
 
 @Injectable()

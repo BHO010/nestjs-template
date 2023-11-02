@@ -3,10 +3,7 @@ import { ApiTags, ApiOperation, ApiBearerAuth, ApiResponse } from '@nestjs/swagg
 import { ApiErrorDecorator } from '../common/decorator/error/error.decorator'
 import { AuthService } from './auth.service'
 import { Request, Response } from 'express'
-import { InjectRepository } from '@nestjs/typeorm';
-import { User } from '../entities/user.entity';
-import { Repository } from 'typeorm';
-import { LoginDto } from './dto/login.Dto'
+import { LoginDto } from './dto/login.dto'
 
 import {JwtAccessAuthGuard} from "src/auth/jwt/access/jwt-auth.guard"
 import {JwtRefreshAuthGuard} from "src/auth/jwt/refresh/jwt-auth.guard"
