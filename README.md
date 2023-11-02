@@ -61,5 +61,4 @@ SALT_ROUNDS=12
 
 ## References
 
-1. [Setting up MongoDB with Docker](https://dev.to/nyomansunima/create-nestjs-api-using-typescript-mongodb-docker-docker-compose-29k9)
-2. [Setting up google oauth client](https://support.google.com/cloud/answer/6158849?hl=en#)
+1. [Setting up google oauth client](https://support.google.com/cloud/answer/6158849?hl=en#)
